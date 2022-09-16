@@ -1,0 +1,36 @@
+image: "rust:latest"
+
+before_script:
+- apt-get update -yqq
+- apt-get install -yqq --no-install-recommends build-essential
+
+stages:
+- build
+- test
+
+build:
+  stage: build
+  script:
+  - HERE="$(readlink -f .)"
+  - CARGO_HOME="$HERE/cargo_dir/"
+  - cargo build --release
+
+  cache:
+    key: ansi-parse
+    paths:
+      - target
+      - cargo_dir
+
+test:
+  stage: test
+  script:
+  - HERE="$(readlink -f .)"
+  - CARGO_HOME="$HERE/cargo_dir/"
+  - rustc --version && cargo --version      # Print version info for debugging
+  - cargo test --all --verbose
+
+  cache:
+    key: ansi-parse
+    paths:
+      - target
+      - cargo_dir

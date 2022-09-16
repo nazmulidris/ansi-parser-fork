@@ -1,0 +1,22 @@
+[package]
+authors = ["David Bittner <bittneradave@gmail.com>"]
+description = "A library using nom for parsing ANSI Escape Codes"
+homepage = "https://gitlab.com/DavidBittner/ansi-parser"
+name = "ansi-parser"
+
+license = "MPL-2.0"
+version = "0.9.0"
+
+edition = "2018"
+
+[dependencies]
+heapless = "0.6.1"
+unicode-width = "0.1.8"
+
+[dependencies.nom]
+default-features = false
+version = "4.2.3"
+
+[features]
+default = ["std"]
+std = ["nom/std"]
